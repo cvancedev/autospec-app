@@ -116,12 +116,14 @@ useEffect(() => {
             }}
             className="rounded-lg border border-slate-300 px-3 py-2 text-slate-900 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
           >
-            <option value="">Select year</option>
-            <option value="2024">2024</option>
-            <option value="2023">2023</option>
-            <option value="2022">2022</option>
-            <option value="2021">2021</option>
-            <option value="2020">2020</option>
+            {Array.from(
+              { length: new Date().getFullYear() - 1980 + 1 },
+              (_, index) => new Date().getFullYear() - index
+            ).map((yearOption) => (
+              <option key={yearOption} value={yearOption}>
+                {yearOption}
+              </option>
+            ))}
           </select>
         </label>
 
