@@ -1,11 +1,91 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
+
+type NhtsaMake = {
+  MakeName: string;
+};
+
+type NhtsaModel = {
+  Model_Name: string;
+};
 
 export default function VehicleSelector() {
   const [year, setYear] = useState("");
   const [make, setMake] = useState("");
   const [model, setModel] = useState("");
+
+  const [makes, setMakes] = useState<string[]>([]);
+const [models, setModels] = useState<string[]>([]);
+const [isLoadingMakes, setIsLoadingMakes] = useState(false);
+const [isLoadingModels, setIsLoadingModels] = useState(false);
+
+useEffect(() => {
+  async function fetchMakes() {
+    if (!year) {
+      setMakes([]);
+      return;
+    }
+
+    setIsLoadingMakes(true);
+    setMakes([]);
+    setModels([]);
+
+    try {
+      const response = await fetch(
+        `https://vpic.nhtsa.dot.gov/api/vehicles/GetMakesForVehicleType/car?format=json`
+      );
+
+      const data = await response.json();
+
+      const makeNames = data.Results.map((item: NhtsaMake) => item.MakeName)
+        .filter(Boolean)
+        .sort();
+
+      setMakes(makeNames);
+    } catch (error) {
+      console.error("Failed to fetch makes:", error);
+      setMakes([]);
+    } finally {
+      setIsLoadingMakes(false);
+    }
+  }
+
+  fetchMakes();
+}, [year]);
+
+useEffect(() => {
+  async function fetchModels() {
+    if (!year || !make) {
+      setModels([]);
+      return;
+    }
+
+    setIsLoadingModels(true);
+    setModels([]);
+
+    try {
+      const response = await fetch(
+        `https://vpic.nhtsa.dot.gov/api/vehicles/GetModelsForMakeYear/make/${make}/modelyear/${year}?format=json`
+      );
+
+      const data = await response.json();
+
+      const modelNames = data.Results.map((item: NhtsaModel) => item.Model_Name)
+        .filter(Boolean)
+        .sort();
+
+      setModels(modelNames);
+    } catch (error) {
+      console.error("Failed to fetch models:", error);
+      setModels([]);
+    } finally {
+      setIsLoadingModels(false);
+    }
+  }
+
+  fetchModels();
+}, [year, make]);
 
   return (
     <section className="mx-auto mt-10 max-w-3xl rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
@@ -56,11 +136,15 @@ export default function VehicleSelector() {
             disabled={!year}
             className="rounded-lg border border-slate-300 px-3 py-2 text-slate-900 outline-none disabled:cursor-not-allowed disabled:bg-slate-100 disabled:text-slate-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
           >
-            <option value="">Select make</option>
-            <option value="Toyota">Toyota</option>
-            <option value="Ford">Ford</option>
-            <option value="Honda">Honda</option>
-            <option value="Chevrolet">Chevrolet</option>
+           <option value="">
+            {isLoadingMakes ? "Loading makes..." : "Select make"}
+          </option>
+
+          {makes.map((makeName) => (
+            <option key={makeName} value={makeName}>
+              {makeName}
+            </option>
+          ))}
           </select>
         </label>
 
@@ -72,11 +156,15 @@ export default function VehicleSelector() {
             disabled={!make}
             className="rounded-lg border border-slate-300 px-3 py-2 text-slate-900 outline-none disabled:cursor-not-allowed disabled:bg-slate-100 disabled:text-slate-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
           >
-            <option value="">Select model</option>
-            <option value="Camry">Camry</option>
-            <option value="F-150">F-150</option>
-            <option value="Civic">Civic</option>
-            <option value="Silverado">Silverado</option>
+          <option value="">
+              {isLoadingModels ? "Loading models..." : "Select model"}
+            </option>
+
+            {models.map((modelName) => (
+              <option key={modelName} value={modelName}>
+                {modelName}
+              </option>
+            ))}
           </select>
         </label>
       </div>
