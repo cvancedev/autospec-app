@@ -140,7 +140,7 @@ useEffect(() => {
             {isLoadingMakes ? "Loading makes..." : "Select make"}
           </option>
 
-          {makes.map((makeName, index) => (
+          {makes.map((makeName: string, index: number) => (
             <option key={`${makeName}-${index}`} value={makeName}>
               {makeName}
             </option>
@@ -160,7 +160,7 @@ useEffect(() => {
               {isLoadingModels ? "Loading models..." : "Select model"}
             </option>
 
-           {models.map((modelName, index) => (
+           {models.map((modelName: string, index: number) => (
             <option key={`${modelName}-${index}`} value={modelName}>
               {modelName}
             </option>
