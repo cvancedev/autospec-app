@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 
 type NhtsaMake = {
   MakeName: string;
@@ -10,49 +11,42 @@ type NhtsaModel = {
   Model_Name: string;
 };
 
+async function fetchMakes() {
+  const response = await fetch(
+    `https://vpic.nhtsa.dot.gov/api/vehicles/GetMakesForVehicleType/car?format=json`
+  );
+
+  if (!response.ok) {
+    throw new Error("Failed to fetch makes");
+  }
+
+  const data = await response.json();
+  return data.Results.map((item: NhtsaMake) => item.MakeName).filter(Boolean).sort();
+}
+
+
 export default function VehicleSelector() {
   const [year, setYear] = useState("");
   const [make, setMake] = useState("");
   const [model, setModel] = useState("");
 
-  const [makes, setMakes] = useState<string[]>([]);
-const [models, setModels] = useState<string[]>([]);
-const [isLoadingMakes, setIsLoadingMakes] = useState(false);
-const [isLoadingModels, setIsLoadingModels] = useState(false);
+  const {
+    data: makes = [],
+    isLoading: isLoadingMakes,
+    isError: isMakesError,
+  } = useQuery({
+    queryKey: ["makes", year],
+    queryFn: fetchMakes,
+    enabled: Boolean(year),
+  });
 
-useEffect(() => {
-  async function fetchMakes() {
-    if (!year) {
-      setMakes([]);
-      return;
-    }
+  const [models, setModels] = useState<string[]>([]);
+  const [isLoadingModels, setIsLoadingModels] = useState(false);
+  const [modelError, setModelError] = useState(false);
 
-    setIsLoadingMakes(true);
-    setMakes([]);
-    setModels([]);
 
-    try {
-      const response = await fetch(
-        `https://vpic.nhtsa.dot.gov/api/vehicles/GetMakesForVehicleType/car?format=json`
-      );
 
-      const data = await response.json();
 
-      const makeNames = data.Results.map((item: NhtsaMake) => item.MakeName)
-        .filter(Boolean)
-        .sort();
-
-      setMakes(makeNames);
-    } catch (error) {
-      console.error("Failed to fetch makes:", error);
-      setMakes([]);
-    } finally {
-      setIsLoadingMakes(false);
-    }
-  }
-
-  fetchMakes();
-}, [year]);
 
 useEffect(() => {
   async function fetchModels() {
@@ -76,9 +70,11 @@ useEffect(() => {
         .sort();
 
       setModels(modelNames);
+      setModelError(false);
     } catch (error) {
       console.error("Failed to fetch models:", error);
       setModels([]);
+      setModelError(true);
     } finally {
       setIsLoadingModels(false);
     }
@@ -86,6 +82,8 @@ useEffect(() => {
 
   fetchModels();
 }, [year, make]);
+
+
 
   return (
     <section className="mx-auto mt-10 max-w-3xl rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
@@ -169,6 +167,11 @@ useEffect(() => {
           ))}
           </select>
         </label>
+        {isMakesError && (
+          <p className="text-sm text-red-600">
+            Unable to load vehicle makes. Please try again.
+          </p>
+        )}
       </div>
 
       {year && make && model && (
