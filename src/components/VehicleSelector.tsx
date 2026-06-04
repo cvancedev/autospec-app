@@ -140,8 +140,8 @@ useEffect(() => {
             {isLoadingMakes ? "Loading makes..." : "Select make"}
           </option>
 
-          {makes.map((makeName) => (
-            <option key={makeName} value={makeName}>
+          {makes.map((makeName, index) => (
+            <option key={`${makeName}-${index}`} value={makeName}>
               {makeName}
             </option>
           ))}
@@ -160,26 +160,56 @@ useEffect(() => {
               {isLoadingModels ? "Loading models..." : "Select model"}
             </option>
 
-            {models.map((modelName) => (
-              <option key={modelName} value={modelName}>
-                {modelName}
-              </option>
-            ))}
+           {models.map((modelName, index) => (
+            <option key={`${modelName}-${index}`} value={modelName}>
+              {modelName}
+            </option>
+          ))}
           </select>
         </label>
       </div>
 
       {year && make && model && (
-        <div className="mt-6 rounded-xl bg-slate-50 p-4">
-          <p className="text-sm font-semibold text-slate-700">
-            Selected Vehicle
-          </p>
+  <div className="mt-6 rounded-xl border border-slate-200 bg-slate-50 p-5">
+    <p className="text-sm font-semibold uppercase tracking-wide text-blue-600">
+      Vehicle Spec Card
+    </p>
 
-          <p className="mt-1 text-lg font-bold text-slate-900">
-            {year} {make} {model}
-          </p>
-        </div>
-      )}
+    <h3 className="mt-2 text-2xl font-bold text-slate-900">
+      {year} {make} {model}
+    </h3>
+
+    <div className="mt-5 grid gap-4 md:grid-cols-2">
+      <div className="rounded-lg bg-white p-4 shadow-sm">
+        <p className="text-xs font-semibold uppercase text-slate-500">
+          Year
+        </p>
+        <p className="mt-1 text-lg font-bold text-slate-900">{year}</p>
+      </div>
+
+      <div className="rounded-lg bg-white p-4 shadow-sm">
+        <p className="text-xs font-semibold uppercase text-slate-500">
+          Make
+        </p>
+        <p className="mt-1 text-lg font-bold text-slate-900">{make}</p>
+      </div>
+
+      <div className="rounded-lg bg-white p-4 shadow-sm">
+        <p className="text-xs font-semibold uppercase text-slate-500">
+          Model
+        </p>
+        <p className="mt-1 text-lg font-bold text-slate-900">{model}</p>
+      </div>
+
+      <div className="rounded-lg bg-white p-4 shadow-sm">
+        <p className="text-xs font-semibold uppercase text-slate-500">
+          Data Source
+        </p>
+        <p className="mt-1 text-lg font-bold text-slate-900">NHTSA API</p>
+      </div>
+    </div>
+  </div>
+)}
     </section>
   );
 }
