@@ -2,6 +2,8 @@
 
 import { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
+import { vehicleSpecs } from "@/data/vehicleSpecs";
+import SpecCard from "./SpecCard";
 
 type NhtsaMake = {
   MakeName: string;
@@ -65,9 +67,11 @@ useEffect(() => {
 
       const data = await response.json();
 
-      const modelNames = data.Results.map((item: NhtsaModel) => item.Model_Name)
-        .filter(Boolean)
-        .sort();
+const modelNames = Array.from(
+  new Set<string>(
+    data.Results.map((item: NhtsaModel) => item.Model_Name).filter(Boolean)
+  )
+).sort();
 
       setModels(modelNames);
       setModelError(false);
@@ -82,6 +86,13 @@ useEffect(() => {
 
   fetchModels();
 }, [year, make]);
+
+const selectedVehicleSpec = vehicleSpecs.find(
+  (vehicle) =>
+    vehicle.year === year &&
+    vehicle.make.toLowerCase() === make.toLowerCase() &&
+    vehicle.model.toLowerCase() === model.toLowerCase()
+);
 
 
 
@@ -111,6 +122,7 @@ useEffect(() => {
               setYear(event.target.value);
               setMake("");
               setModel("");
+              setModelError(false);
             }}
             className="rounded-lg border border-slate-300 px-3 py-2 text-slate-900 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
           >
@@ -132,6 +144,7 @@ useEffect(() => {
             onChange={(event) => {
               setMake(event.target.value);
               setModel("");
+              setModelError(false);
             }}
             disabled={!year}
             className="rounded-lg border border-slate-300 px-3 py-2 text-slate-900 outline-none disabled:cursor-not-allowed disabled:bg-slate-100 disabled:text-slate-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
@@ -167,6 +180,11 @@ useEffect(() => {
           ))}
           </select>
         </label>
+        {modelError && (
+          <p className="text-sm text-red-600">
+            Unable to load vehicle models. Please try again.
+          </p>
+        )}
         {isMakesError && (
           <p className="text-sm text-red-600">
             Unable to load vehicle makes. Please try again.
@@ -174,46 +192,8 @@ useEffect(() => {
         )}
       </div>
 
-      {year && make && model && (
-  <div className="mt-6 rounded-xl border border-slate-200 bg-slate-50 p-5">
-    <p className="text-sm font-semibold uppercase tracking-wide text-blue-600">
-      Vehicle Spec Card
-    </p>
-
-    <h3 className="mt-2 text-2xl font-bold text-slate-900">
-      {year} {make} {model}
-    </h3>
-
-    <div className="mt-5 grid gap-4 md:grid-cols-2">
-      <div className="rounded-lg bg-white p-4 shadow-sm">
-        <p className="text-xs font-semibold uppercase text-slate-500">
-          Year
-        </p>
-        <p className="mt-1 text-lg font-bold text-slate-900">{year}</p>
-      </div>
-
-      <div className="rounded-lg bg-white p-4 shadow-sm">
-        <p className="text-xs font-semibold uppercase text-slate-500">
-          Make
-        </p>
-        <p className="mt-1 text-lg font-bold text-slate-900">{make}</p>
-      </div>
-
-      <div className="rounded-lg bg-white p-4 shadow-sm">
-        <p className="text-xs font-semibold uppercase text-slate-500">
-          Model
-        </p>
-        <p className="mt-1 text-lg font-bold text-slate-900">{model}</p>
-      </div>
-
-      <div className="rounded-lg bg-white p-4 shadow-sm">
-        <p className="text-xs font-semibold uppercase text-slate-500">
-          Data Source
-        </p>
-        <p className="mt-1 text-lg font-bold text-slate-900">NHTSA API</p>
-      </div>
-    </div>
-  </div>
+{selectedVehicleSpec && (
+  <SpecCard vehicle={selectedVehicleSpec} />
 )}
     </section>
   );
