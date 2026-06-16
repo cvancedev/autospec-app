@@ -1,27 +1,108 @@
 # AutoSpec
 
-AutoSpec is a mobile-first vehicle specification lookup tool for automotive technicians.
+AutoSpec is a modern automotive reference application built with Next.js, TypeScript, and Tailwind CSS. The application helps users quickly access vehicle specifications, maintenance information, and common diagnostic trouble codes.
 
-## Project Goal
+## Features
 
-The goal of AutoSpec is to help technicians quickly look up vehicle information, repair-related notes, and commonly needed specifications from a clean, responsive interface.
+### Vehicle Selection
 
-## Tech Stack
+* Dynamic Year → Make → Model selection
+* Real vehicle data powered by the NHTSA API
+* Responsive and accessible interface
 
-- Next.js
-- TypeScript
-- Tailwind CSS
-- React Query
-- Jest
-- React Testing Library
+### Vehicle Specifications
 
-## Current Status
+* Engine specifications
+* Air and cabin filter information
+* Fluid specifications and capacities
 
-Week 1 setup is complete.
+### OBD-II Diagnostic Lookup
 
-- Project created with Next.js
-- TypeScript enabled
-- Tailwind CSS configured
-- Basic folder structure created
-- Initial vehicle type model added
-- React Query and testing tools installed
+* Search 50 common OBD-II trouble codes
+* Instant code lookup
+* Detailed code descriptions
+* Common diagnostic reference information
+* Keyboard accessible search functionality
+
+### Testing & Quality
+
+* Jest unit testing
+* React Testing Library
+* Accessibility-focused development
+* TypeScript type safety
+* ESLint code quality checks
+
+## Technology Stack
+
+* Next.js
+* React
+* TypeScript
+* Tailwind CSS
+* Jest
+* React Testing Library
+* NHTSA Vehicle API
+
+## Project Progress
+
+### Week 1
+
+* Project setup
+* TypeScript configuration
+* Tailwind integration
+* GitHub Actions CI/CD
+* Vercel deployment
+
+### Week 2
+
+* Vehicle Selector UI
+* NHTSA API integration
+* Dynamic Year → Make → Model workflow
+
+### Week 3
+
+* SpecCard component
+* Engine tab
+* Filters tab
+* Fluids tab
+* Unit tests
+* Lighthouse accessibility audit
+
+### Week 4
+
+* OBD-II Diagnostic Lookup
+* 50 common diagnostic trouble codes
+* Diagnostics tab integration
+* Search functionality
+* Keyboard navigation support
+* Automated tests
+
+## Future Enhancements
+
+* Expanded OBD-II code database
+* Maintenance schedules
+* Recall information
+* Repair cost estimates
+* Service interval tracking
+* Vehicle comparison tools
+
+# Screenshots
+
+## Vehicle Selector
+
+![Vehicle Selector](./screenshots/vehicle-selector.png)
+
+## Engine Specifications
+
+![Engine Tab](./screenshots/engine-tab.png)
+
+## Filter Information
+
+![Filters Tab](./screenshots/filters-tab.png)
+
+## Fluid Specifications
+
+![Fluids Tab](./screenshots/fluids-tab.png)
+
+## OBD-II Diagnostic Lookup
+
+![Diagnostics Tab](./screenshots/diagnostics-tab.png)
