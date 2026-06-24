@@ -1,9 +1,11 @@
 import VehicleSelector from "@/components/VehicleSelector";
+import JobNotes from "@/components/JobNotes";
+import PartsChecklist from "@/components/PartsChecklist";
 
 export default function Home() {
   return (
     <main>
-          <section className="mx-auto max-w-3xl text-center">
+      <section className="mx-auto max-w-3xl text-center">
         <p className="text-sm font-semibold uppercase tracking-wide text-blue-600">
           AutoSpec
         </p>
@@ -19,6 +21,14 @@ export default function Home() {
       </section>
 
       <VehicleSelector />
+
+      <section className="mx-auto mt-6 max-w-3xl">
+        <JobNotes />
+      </section>
+
+      <section className="mx-auto mt-6 max-w-3xl">
+        <PartsChecklist />
+      </section>
     </main>
   );
 }
