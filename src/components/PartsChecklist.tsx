@@ -86,7 +86,14 @@ export default function PartsChecklist() {
       </div>
 
       <div className="mb-4 flex flex-col gap-2 sm:flex-row">
+        <label
+          htmlFor="parts-checklist-input"
+          className="sr-only"
+        >
+          Part name
+        </label>
         <input
+          id="parts-checklist-input"
           type="text"
           value={newPartName}
           onChange={handlePartNameChange}
@@ -112,22 +119,28 @@ export default function PartsChecklist() {
         {parts.map((part) => (
           <li
             key={part.id}
-            className="flex items-center gap-3 rounded-lg border border-slate-200 px-3 py-2"
+            className="rounded-lg border border-slate-200 px-3 py-2"
           >
-            <input
-              type="checkbox"
-              checked={part.completed}
-              onChange={() => handleTogglePart(part.id)}
-              className="h-4 w-4 rounded border-slate-300 text-blue-600 focus:ring-blue-500"
-            />
-
-            <span
-              className={
-                part.completed ? "text-slate-400 line-through" : "text-slate-800"
-              }
+            <label
+              htmlFor={`part-${part.id}`}
+              className="flex cursor-pointer items-center gap-3"
             >
-              {part.name}
-            </span>
+              <input
+                id={`part-${part.id}`}
+                type="checkbox"
+                checked={part.completed}
+                onChange={() => handleTogglePart(part.id)}
+                className="h-4 w-4 rounded border-slate-300 text-blue-600 focus:ring-blue-500"
+              />
+
+              <span
+                className={
+                  part.completed ? "text-slate-400 line-through" : "text-slate-800"
+                }
+              >
+                {part.name}
+              </span>
+            </label>
           </li>
         ))}
       </ul>

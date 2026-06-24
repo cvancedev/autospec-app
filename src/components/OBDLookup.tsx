@@ -12,7 +12,11 @@ export default function OBDLookup() {
 
   return (
     <div className="space-y-4">
+      <label htmlFor="obd-code-search" className="block text-sm font-medium text-slate-700">
+        OBD-II Code
+      </label>
       <input
+        id="obd-code-search"
         type="text"
         placeholder="Enter OBD-II code (ex: P0300)"
         value={search}

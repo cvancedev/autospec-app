@@ -1,108 +1,154 @@
 # AutoSpec
 
-AutoSpec is a modern automotive reference application built with Next.js, TypeScript, and Tailwind CSS. The application helps users quickly access vehicle specifications, maintenance information, and common diagnostic trouble codes.
+AutoSpec is a professional vehicle service workflow application built with React and Next.js. It helps technicians and service teams move from vehicle identification to actionable service information with fewer clicks and better in-bay efficiency.
+
+## Project Overview
+
+AutoSpec combines key automotive workflow steps into one interface:
+
+- Vehicle lookup by year, make, and model
+- Vehicle specification display (engine, filters, fluids)
+- OBD-II diagnostic code lookup
+- Job notes capture with local persistence
+- Parts checklist tracking with completion controls
+
+The application is optimized for real-world service usage, with a clean UI, responsive layout, and accessible form controls.
+
+## Problem Statement
+
+Technicians often switch between multiple systems or tabs to gather vehicle specs, diagnostic references, notes, and required parts. This context switching increases time-to-service, introduces avoidable errors, and slows shop throughput.
+
+AutoSpec addresses this by centralizing essential reference and workflow tooling into one focused interface.
 
 ## Features
 
-### Vehicle Selection
+- Dynamic Year → Make → Model selection workflow
+- NHTSA-powered vehicle make/model data integration
+- Vehicle specification tabs (engine, filters, fluids, diagnostics)
+- OBD-II code search with code details
+- Job Notes component with localStorage persistence
+- Parts Checklist component with:
+	- Add and complete item workflows
+	- Clear Completed and Clear All actions
+	- localStorage persistence and reload-on-mount behavior
+- Responsive Tailwind CSS interface
+- Accessibility improvements including explicit labels for form controls
 
-* Dynamic Year → Make → Model selection
-* Real vehicle data powered by the NHTSA API
-* Responsive and accessible interface
+## Tech Stack
 
-### Vehicle Specifications
+- Next.js (App Router)
+- React
+- TypeScript
+- Tailwind CSS
+- TanStack Query (React Query)
+- Jest
+- React Testing Library
+- ESLint
 
-* Engine specifications
-* Air and cabin filter information
-* Fluid specifications and capacities
+## Installation
 
-### OBD-II Diagnostic Lookup
+### Prerequisites
 
-* Search 50 common OBD-II trouble codes
-* Instant code lookup
-* Detailed code descriptions
-* Common diagnostic reference information
-* Keyboard accessible search functionality
+- Node.js 18+
+- npm 9+
 
-### Testing & Quality
+### Setup
 
-* Jest unit testing
-* React Testing Library
-* Accessibility-focused development
-* TypeScript type safety
-* ESLint code quality checks
+```bash
+git clone <your-repository-url>
+cd autospec
+npm install
+```
 
-## Technology Stack
+## Running Locally
 
-* Next.js
-* React
-* TypeScript
-* Tailwind CSS
-* Jest
-* React Testing Library
-* NHTSA Vehicle API
+Start the development server:
 
-## Project Progress
+```bash
+npm run dev
+```
 
-### Week 1
+Open http://localhost:3000 in your browser.
 
-* Project setup
-* TypeScript configuration
-* Tailwind integration
-* GitHub Actions CI/CD
-* Vercel deployment
+Create a production build:
 
-### Week 2
+```bash
+npm run build
+```
 
-* Vehicle Selector UI
-* NHTSA API integration
-* Dynamic Year → Make → Model workflow
+Run the production server:
 
-### Week 3
+```bash
+npm run start
+```
 
-* SpecCard component
-* Engine tab
-* Filters tab
-* Fluids tab
-* Unit tests
-* Lighthouse accessibility audit
+## Testing
 
-### Week 4
+Run all tests:
 
-* OBD-II Diagnostic Lookup
-* 50 common diagnostic trouble codes
-* Diagnostics tab integration
-* Search functionality
-* Keyboard navigation support
-* Automated tests
+```bash
+npm test
+```
+
+Run a specific test file:
+
+```bash
+npm test -- src/components/__tests__/PartsChecklist.test.tsx
+```
+
+Run lint checks:
+
+```bash
+npm run lint
+```
+
+## Deployment
+
+AutoSpec is ready to deploy on platforms that support Next.js applications.
+
+### Recommended: Vercel
+
+1. Push this repository to GitHub.
+2. Import the project into Vercel.
+3. Use default build settings for Next.js.
+4. Deploy.
+
+### Manual Deployment
+
+For self-hosting, build and run the app:
+
+```bash
+npm run build
+npm run start
+```
 
 ## Future Enhancements
 
-* Expanded OBD-II code database
-* Maintenance schedules
-* Recall information
-* Repair cost estimates
-* Service interval tracking
-* Vehicle comparison tools
+- Maintenance interval scheduling by mileage/time
+- Expanded OBD-II and manufacturer-specific diagnostics
+- Vehicle recall and TSB integration
+- Service history snapshots and printable job reports
+- Role-based workflows for technicians, advisors, and managers
+- Cloud sync for notes and parts checklists
 
-# Screenshots
+## Screenshots
 
-## Vehicle Selector
+### Vehicle Selector
 
 ![Vehicle Selector](./screenshots/vehicle-selector.png)
 
-## Engine Specifications
+### Engine Specifications
 
 ![Engine Tab](./screenshots/engine-tab.png)
 
-## Filter Information
+### Filter Information
 
 ![Filters Tab](./screenshots/filters-tab.png)
 
-## Fluid Specifications
+### Fluid Specifications
 
 ![Fluids Tab](./screenshots/fluids-tab.png)
 
-## OBD-II Diagnostic Lookup
+### OBD-II Diagnostic Lookup
 
 ![Diagnostics Tab](./screenshots/diagnostics-tab.png)
