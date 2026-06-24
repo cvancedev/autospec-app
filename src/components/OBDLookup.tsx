@@ -26,13 +26,13 @@ export default function OBDLookup() {
             setSearch("");
           }
         }}
-        className="w-full border rounded p-2"
+        className="w-full rounded-lg border border-slate-300 bg-white p-2.5 shadow-sm outline-none transition duration-200 ease-out focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
       />
 
       {search && (
         <>
           {result ? (
-            <div className="border rounded p-4">
+            <div className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm transition duration-200 ease-out hover:shadow-md">
               <h3 className="font-bold">{result.code}</h3>
               <p className="font-semibold">{result.title}</p>
               <p>{result.description}</p>

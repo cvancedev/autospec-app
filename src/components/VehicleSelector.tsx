@@ -97,23 +97,23 @@ const selectedVehicleSpec = vehicleSpecs.find(
 
 
   return (
-    <section className="mx-auto mt-10 max-w-3xl rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-      <div className="mb-6">
+    <section className="mx-auto mt-8 max-w-5xl rounded-3xl border border-slate-200/80 bg-white/95 p-6 shadow-[0_18px_45px_-28px_rgba(15,23,42,0.42)] backdrop-blur-sm transition duration-300 ease-out hover:-translate-y-0.5 hover:shadow-[0_24px_55px_-28px_rgba(15,23,42,0.45)] sm:p-8">
+      <div className="mb-7">
         <p className="text-sm font-semibold uppercase tracking-wide text-blue-600">
           AutoSpec Lookup
         </p>
 
-        <h2 className="mt-2 text-2xl font-bold text-slate-900">
+        <h2 className="mt-2 text-2xl font-bold tracking-tight text-slate-900 sm:text-3xl">
           Select a Vehicle
         </h2>
 
-        <p className="mt-2 text-sm text-slate-600">
+        <p className="mt-3 text-sm leading-6 text-slate-600 sm:text-base">
           Choose a year, make, and model to begin building the vehicle spec
           card.
         </p>
       </div>
 
-      <div className="grid gap-4 md:grid-cols-3">
+      <div className="grid gap-4 sm:gap-5 md:grid-cols-3">
         <label className="flex flex-col gap-2">
           <span className="text-sm font-medium text-slate-700">Year</span>
           <select
@@ -124,7 +124,7 @@ const selectedVehicleSpec = vehicleSpecs.find(
               setModel("");
               setModelError(false);
             }}
-            className="rounded-lg border border-slate-300 px-3 py-2 text-slate-900 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
+            className="h-11 rounded-xl border border-slate-300 bg-white px-3 text-slate-900 shadow-sm outline-none transition duration-200 ease-out focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
           >
             {Array.from(
               { length: new Date().getFullYear() - 1980 + 1 },
@@ -147,7 +147,7 @@ const selectedVehicleSpec = vehicleSpecs.find(
               setModelError(false);
             }}
             disabled={!year}
-            className="rounded-lg border border-slate-300 px-3 py-2 text-slate-900 outline-none disabled:cursor-not-allowed disabled:bg-slate-100 disabled:text-slate-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
+            className="h-11 rounded-xl border border-slate-300 bg-white px-3 text-slate-900 shadow-sm outline-none transition duration-200 ease-out disabled:cursor-not-allowed disabled:bg-slate-100 disabled:text-slate-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
           >
            <option value="">
             {isLoadingMakes ? "Loading makes..." : "Select make"}
@@ -167,7 +167,7 @@ const selectedVehicleSpec = vehicleSpecs.find(
             value={model}
             onChange={(event) => setModel(event.target.value)}
             disabled={!make}
-            className="rounded-lg border border-slate-300 px-3 py-2 text-slate-900 outline-none disabled:cursor-not-allowed disabled:bg-slate-100 disabled:text-slate-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
+            className="h-11 rounded-xl border border-slate-300 bg-white px-3 text-slate-900 shadow-sm outline-none transition duration-200 ease-out disabled:cursor-not-allowed disabled:bg-slate-100 disabled:text-slate-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
           >
           <option value="">
               {isLoadingModels ? "Loading models..." : "Select model"}
@@ -181,12 +181,12 @@ const selectedVehicleSpec = vehicleSpecs.find(
           </select>
         </label>
         {modelError && (
-          <p className="text-sm text-red-600">
+          <p className="md:col-span-3 text-sm text-red-600">
             Unable to load vehicle models. Please try again.
           </p>
         )}
         {isMakesError && (
-          <p className="text-sm text-red-600">
+          <p className="md:col-span-3 text-sm text-red-600">
             Unable to load vehicle makes. Please try again.
           </p>
         )}

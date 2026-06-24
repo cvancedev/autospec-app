@@ -77,15 +77,15 @@ export default function PartsChecklist() {
   };
 
   return (
-    <section className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
-      <div className="mb-4">
-        <h3 className="text-base font-semibold text-slate-900">Parts Checklist</h3>
+    <section className="rounded-3xl border border-slate-200/80 bg-white/95 p-5 shadow-[0_18px_45px_-28px_rgba(15,23,42,0.42)] transition duration-300 ease-out hover:-translate-y-0.5 hover:shadow-[0_24px_55px_-28px_rgba(15,23,42,0.45)] sm:p-6">
+      <div className="mb-5">
+        <h3 className="text-base font-semibold text-slate-900 sm:text-lg">Parts Checklist</h3>
         <p className="mt-1 text-sm text-slate-600">
           Track required parts and mark them complete during the job.
         </p>
       </div>
 
-      <div className="mb-4 flex flex-col gap-2 sm:flex-row">
+      <div className="mb-5 flex flex-col gap-2 sm:flex-row">
         <label
           htmlFor="parts-checklist-input"
           className="sr-only"
@@ -103,23 +103,23 @@ export default function PartsChecklist() {
             }
           }}
           placeholder="Add a part (ex: front brake pads)"
-          className="w-full rounded-lg border border-slate-300 px-3 py-2 text-slate-900 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
+          className="h-11 w-full rounded-xl border border-slate-300 bg-white px-4 text-slate-900 shadow-sm outline-none transition duration-200 ease-out placeholder:text-slate-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
         />
 
         <button
           type="button"
           onClick={handleAddPart}
-          className="rounded-lg bg-blue-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-blue-700"
+          className="h-11 rounded-xl bg-blue-600 px-5 text-sm font-semibold text-white shadow-sm transition duration-200 ease-out hover:bg-blue-700 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-300"
         >
           Add
         </button>
       </div>
 
-      <ul className="space-y-2">
+      <ul className="space-y-2.5">
         {parts.map((part) => (
           <li
             key={part.id}
-            className="rounded-lg border border-slate-200 px-3 py-2"
+            className="rounded-xl border border-slate-200 bg-white px-3.5 py-2.5 shadow-sm transition duration-200 ease-out hover:border-slate-300 hover:shadow-md"
           >
             <label
               htmlFor={`part-${part.id}`}
@@ -146,14 +146,16 @@ export default function PartsChecklist() {
       </ul>
 
       {parts.length === 0 && (
-        <p className="mt-3 text-sm text-slate-500">No parts added yet.</p>
+        <p className="mt-3 rounded-xl border border-dashed border-slate-300 bg-slate-50 px-3 py-2 text-sm text-slate-500">
+          No parts added yet.
+        </p>
       )}
 
-      <div className="mt-4 flex flex-wrap gap-2">
+      <div className="mt-5 flex flex-wrap gap-2.5">
         <button
           type="button"
           onClick={handleClearCompleted}
-          className="rounded-lg border border-slate-300 px-3 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-50"
+          className="rounded-xl border border-slate-300 bg-white px-3.5 py-2 text-sm font-medium text-slate-700 shadow-sm transition duration-200 ease-out hover:bg-slate-50 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-300"
         >
           Clear Completed
         </button>
@@ -161,7 +163,7 @@ export default function PartsChecklist() {
         <button
           type="button"
           onClick={handleClearAll}
-          className="rounded-lg border border-red-300 px-3 py-2 text-sm font-medium text-red-700 transition hover:bg-red-50"
+          className="rounded-xl border border-red-300 bg-white px-3.5 py-2 text-sm font-medium text-red-700 shadow-sm transition duration-200 ease-out hover:bg-red-50 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-200"
         >
           Clear All
         </button>

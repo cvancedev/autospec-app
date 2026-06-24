@@ -14,25 +14,25 @@ export default function SpecCard({ vehicle }: SpecCardProps) {
   const [activeTab, setActiveTab] = useState<Tab>("engine");
 
   return (
-    <div className="mt-6 rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
+    <div className="mt-6 rounded-xl border border-slate-200 bg-white p-6 shadow-sm transition duration-300 ease-out hover:-translate-y-0.5 hover:shadow-md">
       <h2 className="text-2xl font-bold text-slate-900">
         {vehicle.year} {vehicle.make} {vehicle.model}
       </h2>
 
       <div className="mt-4 flex flex-wrap gap-2">
-        <button onClick={() => setActiveTab("engine")} className="rounded-lg border px-4 py-2">
+        <button onClick={() => setActiveTab("engine")} className="rounded-lg border px-4 py-2 transition duration-200 ease-out hover:bg-slate-50 hover:shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-300">
           Engine
         </button>
 
-        <button onClick={() => setActiveTab("filters")} className="rounded-lg border px-4 py-2">
+        <button onClick={() => setActiveTab("filters")} className="rounded-lg border px-4 py-2 transition duration-200 ease-out hover:bg-slate-50 hover:shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-300">
           Filters
         </button>
 
-        <button onClick={() => setActiveTab("fluids")} className="rounded-lg border px-4 py-2">
+        <button onClick={() => setActiveTab("fluids")} className="rounded-lg border px-4 py-2 transition duration-200 ease-out hover:bg-slate-50 hover:shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-300">
           Fluids
         </button>
 
-        <button onClick={() => setActiveTab("diagnostics")} className="rounded-lg border px-4 py-2">
+        <button onClick={() => setActiveTab("diagnostics")} className="rounded-lg border px-4 py-2 transition duration-200 ease-out hover:bg-slate-50 hover:shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-300">
           Diagnostics
         </button>
       </div>
