@@ -152,3 +152,8 @@ npm run start
 ### OBD-II Diagnostic Lookup
 
 ![Diagnostics Tab](./screenshots/diagnostics-tab.png)
+
+## Project Walkthrough
+
+Watch the Loom demo:
+[AutoSpec Demo] https://www.loom.com/share/611385ccb4a74e93adebc39c1df690d1
