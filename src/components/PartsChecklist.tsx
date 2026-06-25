@@ -1,6 +1,6 @@
 "use client";
 
-import { ChangeEvent, useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useLayoutEffect, useState } from "react";
 
 const PARTS_CHECKLIST_STORAGE_KEY = "parts-checklist";
 
@@ -12,28 +12,35 @@ interface PartChecklistItem {
 
 export default function PartsChecklist() {
   const [newPartName, setNewPartName] = useState<string>("");
-  const [parts, setParts] = useState<PartChecklistItem[]>(() => {
-    if (typeof window === "undefined") {
-      return [];
-    }
+  const [parts, setParts] = useState<PartChecklistItem[]>([]);
+  const [hasLoadedParts, setHasLoadedParts] = useState<boolean>(false);
 
+  useLayoutEffect(() => {
     const savedParts = localStorage.getItem(PARTS_CHECKLIST_STORAGE_KEY);
 
     if (!savedParts) {
-      return [];
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setHasLoadedParts(true);
+      return;
     }
 
     try {
       const parsedParts = JSON.parse(savedParts);
-      return Array.isArray(parsedParts) ? parsedParts : [];
+      setParts(Array.isArray(parsedParts) ? parsedParts : []);
     } catch {
-      return [];
+      setParts([]);
     }
-  });
+
+    setHasLoadedParts(true);
+  }, []);
 
   useEffect(() => {
+    if (!hasLoadedParts) {
+      return;
+    }
+
     localStorage.setItem(PARTS_CHECKLIST_STORAGE_KEY, JSON.stringify(parts));
-  }, [parts]);
+  }, [parts, hasLoadedParts]);
 
   const handlePartNameChange = (event: ChangeEvent<HTMLInputElement>) => {
     setNewPartName(event.target.value);

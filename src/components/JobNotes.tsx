@@ -1,17 +1,16 @@
 "use client";
 
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useLayoutEffect, useState } from "react";
 
 const JOB_NOTES_STORAGE_KEY = "job-notes";
 
 export default function JobNotes() {
-  const [notes, setNotes] = useState<string>(() => {
-    if (typeof window === "undefined") {
-      return "";
-    }
+  const [notes, setNotes] = useState<string>("");
 
-    return localStorage.getItem(JOB_NOTES_STORAGE_KEY) ?? "";
-  });
+  useLayoutEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setNotes(localStorage.getItem(JOB_NOTES_STORAGE_KEY) ?? "");
+  }, []);
 
   const handleNotesChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
     const nextNotes = event.target.value;

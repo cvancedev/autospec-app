@@ -126,6 +126,7 @@ const selectedVehicleSpec = vehicleSpecs.find(
             }}
             className="h-11 rounded-xl border border-slate-300 bg-white px-3 text-slate-900 shadow-sm outline-none transition duration-200 ease-out focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
           >
+            <option value="">Select year</option>
             {Array.from(
               { length: new Date().getFullYear() - 1980 + 1 },
               (_, index) => new Date().getFullYear() - index
